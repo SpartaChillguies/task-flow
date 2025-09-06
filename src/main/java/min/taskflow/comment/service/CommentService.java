@@ -11,7 +11,7 @@ import min.taskflow.comment.exception.CommentException;
 import min.taskflow.comment.mapper.CommentMapper;
 import min.taskflow.comment.repository.CommentRepository;
 import min.taskflow.task.entity.Task;
-import min.taskflow.task.service.InternalTaskService;
+import min.taskflow.task.service.queryService.InternalQueryTaskService;
 import min.taskflow.user.dto.response.UserResponse;
 import min.taskflow.user.service.queryService.InternalQueryUserService;
 import org.springframework.data.domain.*;
@@ -26,7 +26,7 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final InternalTaskService taskService;
+    private final InternalQueryTaskService taskService;
     private final InternalQueryUserService userService;
     private final CommentMapper commentMapper;
 

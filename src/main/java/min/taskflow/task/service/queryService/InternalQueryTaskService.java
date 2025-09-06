@@ -1,4 +1,4 @@
-package min.taskflow.task.service;
+package min.taskflow.task.service.queryService;
 
 import lombok.RequiredArgsConstructor;
 import min.taskflow.task.entity.Task;
@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class InternalTaskService {
+public class InternalQueryTaskService {
 
     private final TaskRepository taskRepository;
 
     public Task findByTaskId(Long taskId) {
-        return taskRepository.findById(taskId).orElseThrow(() -> new TaskException(TaskErrorCode.TASK_NOT_FOUND));
+
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new TaskException(TaskErrorCode.TASK_NOT_FOUND));
+
+        return task;
     }
 }

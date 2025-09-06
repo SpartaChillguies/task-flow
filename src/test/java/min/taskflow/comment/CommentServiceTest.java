@@ -13,7 +13,7 @@ import min.taskflow.fixture.TaskFixture;
 import min.taskflow.fixture.TeamFixture;
 import min.taskflow.fixture.UserFixture;
 import min.taskflow.task.entity.Task;
-import min.taskflow.task.service.InternalTaskService;
+import min.taskflow.task.service.queryService.InternalQueryTaskService;
 import min.taskflow.team.entity.Team;
 import min.taskflow.user.dto.response.UserResponse;
 import min.taskflow.user.entity.User;
@@ -48,7 +48,7 @@ public class CommentServiceTest {
     private CommentMapper commentMapper;
 
     @Mock
-    private InternalTaskService taskService;
+    private InternalQueryTaskService taskService;
 
     @Mock
     private InternalQueryUserService userService;

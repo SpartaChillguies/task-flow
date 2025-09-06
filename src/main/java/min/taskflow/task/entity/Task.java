@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import min.taskflow.common.entity.BaseEntity;
-import min.taskflow.user.entity.User;
+import min.taskflow.task.dto.request.StatusUpdateRequest;
+import min.taskflow.task.dto.request.TaskUpdateRequest;
 
 import java.time.LocalDateTime;
 
@@ -23,24 +24,43 @@ public class Task extends BaseEntity {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private TaskStatus status;
+    private LocalDateTime dueDate;
 
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
-    private LocalDateTime dueDate;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User assignee;
+    private Long assigneeId;
 
     @Builder
-    public Task(String title, String description, TaskStatus status, Priority priority, LocalDateTime dueDate, User assignee) {
+    private Task(String title,
+                 String description,
+                 LocalDateTime dueDate,
+                 Priority priority,
+                 Status status,
+                 Long assigneeId
+    ) {
         this.title = title;
         this.description = description;
-        this.status = status;
-        this.priority = priority;
         this.dueDate = dueDate;
-        this.assignee = assignee;
+        this.priority = priority;
+        this.status = status;
+        this.assigneeId = assigneeId;
+    }
+
+    public void updateDetail(TaskUpdateRequest taskUpdateRequest) {
+        this.title = taskUpdateRequest.title();
+        this.description = taskUpdateRequest.description();
+        this.dueDate = taskUpdateRequest.dueDate();
+        this.priority = taskUpdateRequest.priority();
+        // TODO: status의 순차적 변경 로직 작성 후 아래 코드에 반영하기
+        this.status = taskUpdateRequest.status();
+        this.assigneeId = taskUpdateRequest.assigneeId();
+    }
+
+    public void updateStatus(StatusUpdateRequest statusUpdateRequest) {
+        this.status = status.next();
     }
 }
